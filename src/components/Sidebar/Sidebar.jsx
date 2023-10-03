@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { categories } from "../../utils/constants";
 const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
   return (
@@ -12,31 +12,53 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
       }}
     >
       {categories.map((category) => (
-        <button
-          onClick={() => setSelectedCategory(category.name)}
-          className="category-btn"
-          style={{
-            background: category.name === selectedCategory && "#FC1503",
-            color: "white",
-          }}
-          key={category.name}
-        >
-          <span
-            style={{
-              color: category.name === selectedCategory ? "white" : "red",
-              marginRight: "15px",
+        <div key={category.typeId}>
+          <Typography
+            sx={{
+              color: "white",
+              fontSize: "1em",
             }}
           >
-            {category.icon}
-          </span>
-          <span
-            style={{
-              opacity: category.name === selectedCategory ? "1" : "0.8",
+            {category.type}
+          </Typography>
+          <Stack
+            direction="row"
+            sx={{
+              overflow: "auto",
+              height: { sx: "auto", md: "95%" },
+              flexDirection: { md: "column" },
             }}
           >
-            {category.name}
-          </span>
-        </button>
+            {category.children.map((child) => (
+              <button
+                onClick={() => setSelectedCategory(child.name)}
+                className="category-btn"
+                style={{
+                  background: child.name === selectedCategory && "#FC1503",
+                  color: "white",
+                }}
+                key={child.name}
+              >
+                <span
+                  style={{
+                    color: child.name === selectedCategory ? "white" : "red",
+                    marginRight: "15px",
+                  }}
+                >
+                  {category.icon}
+                </span>
+                <span
+                  style={{
+                    opacity: child.name === selectedCategory ? "1" : "0.8",
+                  }}
+                >
+                  {child.name}
+                </span>
+              </button>
+            ))}
+          </Stack>
+          <hr />
+        </div>
       ))}
     </Stack>
   );
