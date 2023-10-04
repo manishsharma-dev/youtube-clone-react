@@ -8,12 +8,7 @@ import {
   demoVideoTitle,
   demoVideoUrl,
 } from "../../utils/constants";
-const VideoCard = ({
-  video: {
-    id: { videoId },
-    snippet,
-  },
-}) => {
+const VideoCard = ({video}) => {
   return (
     <Card
       sx={{
@@ -22,10 +17,10 @@ const VideoCard = ({
         borderRadius: 0,
       }}
     >
-      <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+      <Link to={video.video.videoId ? `/video/${video.video.videoId }` : demoVideoUrl}>
         <CardMedia
-          image={snippet?.thumbnails?.high?.url}
-          alt={videoId?.title}
+          image={video.video?.thumbnails[0]?.url}
+          alt={video.video?.title}
           sx={{
             width: { xs: "100%", sm: "358px", md: "320px" },
             height: 180,
@@ -37,20 +32,20 @@ const VideoCard = ({
             height: "106px",
           }}
         >
-          <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+          <Link to={video.video.videoId ? `/video/${video.video.videoId}` : demoVideoUrl}>
             <Typography variant="subtitle1" fontWeight="bold" color="#fff">
-              {snippet?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
+              {video.video?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
             </Typography>
           </Link>
           <Link
             to={
-              snippet.channelId
-                ? `/channel/${snippet.channelId}`
+              video?.video?.author?.channelId
+                ? `/channel/${video?.video?.author?.channelId}`
                 : demoChannelUrl
             }
           >
             <Typography variant="subtitle2" fontWeight="bold" color="gray">
-              {snippet?.channelTitle.slice(0, 60) ||
+              {video?.video?.author?.title.slice(0, 60) ||
                 demoChannelTitle.slice(0, 60)}
               <CheckCircle sx={{ fontSize: 12, color: "gray", ml: "5px" }} />
             </Typography>

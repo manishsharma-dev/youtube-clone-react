@@ -1,7 +1,21 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { categories } from "../../utils/constants";
-const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { categoryActions } from "../../store/categorySlice";
+const Sidebar = () => {
+  const category = useSelector((state) => state.category);
+  const selectedCategory = category.name;
+  const dispatch = useDispatch();
+  const setSelectedCategory = (category, child) => {
+    dispatch(
+      categoryActions.setCategory({
+        typeId: category.typeId,
+        name: child.name,
+        channel: child.channel ?? "",
+      })
+    );
+  };
   return (
     <Stack
       direction="row"
@@ -31,7 +45,7 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
           >
             {category.children.map((child) => (
               <button
-                onClick={() => setSelectedCategory(child.name)}
+                onClick={() => setSelectedCategory(category, child)}
                 className="category-btn"
                 style={{
                   background: child.name === selectedCategory && "#FC1503",

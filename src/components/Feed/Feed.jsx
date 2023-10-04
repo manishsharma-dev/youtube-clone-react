@@ -1,39 +1,47 @@
 import { useState, useEffect } from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import { Sidebar, Videos } from "..";
+import { Stack, Typography } from "@mui/material";
+import { Videos } from "..";
 import "./Feed.css";
 import { fetchFromAPI } from "../../utils/fetchFromAPI";
+import { useSelector } from "react-redux";
 const Feed = () => {
-  const [selectedCategory, setSelectedCategory] = useState("New");
+  const cateory = useSelector((state) => state.category);
+  const selectedCategory = cateory.name;
+  console.table(cateory);
   const [videos, setVideos] = useState([]);
   useEffect(() => {
-    fetchFromAPI(`search?part=snippet&regionCode=IN&q=${selectedCategory}`)
-      .then((data) => {
-        setVideos(data.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [selectedCategory]);
+    if (cateory.typeId === 1) {
+      fetchFromAPI(`home/?hl=en&gl=IN`)
+        .then((data) => {
+          setVideos(data.contents);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (cateory.typeId === 2) {
+      fetchFromAPI(`search/?q=${selectedCategory}&hl=en&gl=US`)
+        .then((data) => {
+          setVideos(data.items);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [cateory.typeId, selectedCategory]);
   return (
-    <Stack> 
-        <Typography
-          variant="h4"
-          fontWeight="bold"
-          mb={2}
-          sx={{ color: "white" }}
+    <Stack>
+      <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+        {selectedCategory}
+        <span
+          style={{
+            color: "#F31503",
+          }}
         >
-          {selectedCategory}
-          <span
-            style={{
-              color: "#F31503",
-            }}
-          >
-            {" "}
-            videos
-          </span>
-        </Typography>
-        <Videos videos={videos} />     
+          {" "}
+          videos
+        </span>
+      </Typography>
+      <Videos videos={videos} />
     </Stack>
   );
 };
