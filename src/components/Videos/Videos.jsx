@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, Box } from "@mui/material";
 import { ChannelCard, VideoCard } from "..";
 const Videos = ({ videos, direction }) => {
-  if (!videos && !videos.length) return "Loading...";
+  if (!videos || !videos.length) return "Loading...";
   return (
     <Stack
       direction={direction || "row"}

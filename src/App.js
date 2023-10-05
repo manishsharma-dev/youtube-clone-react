@@ -22,15 +22,15 @@ const App = () => (
         <Box
           sx={{
             height: { sx: "auto", md: "92vh" },
-            borderRight: "1px solid #3d3d3d",
-            px: { sx: "0", md: 2 },
+            width: { sx: "0", md: "10vw" },
+            borderRight: "1px solid #3d3d3d"            
           }}
         >
           <Sidebar />
           <Typography
             className="copyright"
             variant="body2"
-            sx={{ mt: 1.5, color: "#fff" }}
+            sx={{ mt: 1.5, color: "#fff", width: { sx: "100vw", md: "90vw" } }}
           >
             {" "}
             Copyright 2023 M Media

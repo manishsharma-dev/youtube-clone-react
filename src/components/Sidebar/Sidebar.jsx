@@ -26,9 +26,15 @@ const Sidebar = () => {
       }}
     >
       {categories.map((category) => (
-        <div key={category.typeId}>
+        <div
+          style={{
+            borderBottom: "1px solid #3d3d3d",
+            padding: "12px",
+          }}
+          key={category.typeId}
+        >
           <Typography
-            sx={{
+            style={{
               color: "white",
               fontSize: "1em",
             }}
@@ -41,6 +47,7 @@ const Sidebar = () => {
               overflow: "auto",
               height: { sx: "auto", md: "95%" },
               flexDirection: { md: "column" },
+              paddingTop : '12px'
             }}
           >
             {category.children.map((child) => (
@@ -48,6 +55,7 @@ const Sidebar = () => {
                 onClick={() => setSelectedCategory(category, child)}
                 className="category-btn"
                 style={{
+                  width: "70%",
                   background: child.name === selectedCategory && "#FC1503",
                   color: "white",
                 }}
@@ -71,7 +79,6 @@ const Sidebar = () => {
               </button>
             ))}
           </Stack>
-          <hr />
         </div>
       ))}
     </Stack>

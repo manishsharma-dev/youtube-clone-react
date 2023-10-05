@@ -19,9 +19,9 @@ const Feed = () => {
           console.log(err);
         });
     } else if (cateory.typeId === 2) {
-      fetchFromAPI(`search/?q=${selectedCategory}&hl=en&gl=US`)
+      fetchFromAPI(`search/?q=${selectedCategory}&hl=en&gl=IN`)
         .then((data) => {
-          setVideos(data.items);
+          setVideos(data.contents);
         })
         .catch((err) => {
           console.log(err);
