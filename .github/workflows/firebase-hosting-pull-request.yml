@@ -13,5 +13,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CLONE_REACT_67D07 }}'
-          projectId: clone-react-67d07
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MVIDEO_LIB }}'
+          projectId: mvideo-lib
