@@ -8,9 +8,9 @@ const SearchFeed = () => {
   const [videos, setVideos] = useState([]);
   const { searchTerm } = useParams();
   useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${searchTerm}`)
+    fetchFromAPI(`search/?q=${searchTerm}`)
       .then((data) => {
-        setVideos(data.items);
+        setVideos(data.contents);
       })
       .catch((err) => {
         console.log(err);

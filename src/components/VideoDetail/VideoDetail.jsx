@@ -12,23 +12,18 @@ const VideoDetail = () => {
   const [videos, setVideos] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-    fetchFromAPI(`videos?part=snippet,statistics&id=${id}`).then((data) => {
-      setVideoDetail(data?.items[0]);
+    fetchFromAPI(`video/details/?id=${id}`).then((data) => {
+      setVideoDetail(data);
     });
 
-    fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
-      (data) => {
-        setVideos(data.items);
-      }
-    );
+    fetchFromAPI(`video/related-contents/?id=${id}`).then((data) => {
+      setVideos(data.contents);
+    });
   }, [id]);
   if (!videoDetail) {
     return "Loading...";
   }
-  const {
-    snippet: { title, channelId, channelTitle },
-    statistics: { viewCount, likeCount },
-  } = videoDetail;
+  const { title, author, lengthSeconds, stats } = videoDetail;
   return (
     <Box minHeight="95vh">
       <Stack direction={{ xs: "column", md: "row" }}>
@@ -57,7 +52,7 @@ const VideoDetail = () => {
               py={1}
               px={2}
             >
-              <Link to={`/channel/${channelId}`}>
+              <Link to={`/channel/${author.channelId}`}>
                 <Typography
                   variant={{
                     sm: "subtitle1",
@@ -65,7 +60,7 @@ const VideoDetail = () => {
                   }}
                   color="#fff"
                 >
-                  {channelTitle}
+                  {author.title}
                   <CheckCircle
                     sx={{
                       fontSize: "12px",
@@ -82,7 +77,7 @@ const VideoDetail = () => {
                     opacity: 0.7,
                   }}
                 >
-                  {parseInt(viewCount).toLocaleString()} views
+                  {parseInt(stats.views).toLocaleString()} views
                 </Typography>
                 <Typography
                   variant="body1"
@@ -90,7 +85,7 @@ const VideoDetail = () => {
                     opacity: 0.7,
                   }}
                 >
-                  {parseInt(likeCount).toLocaleString()} likes
+                  {parseInt(stats.likes).toLocaleString()} likes
                 </Typography>
               </Stack>
             </Stack>

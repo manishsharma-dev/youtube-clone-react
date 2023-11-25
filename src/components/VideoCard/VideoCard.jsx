@@ -45,7 +45,7 @@ function formatNumberWithSuffix(number) {
 
 const VideoCard = ({ video }) => {
   const videoInfo = video?.video?.isLiveNow
-    ? video?.video?.badges[0]
+    ? video?.video?.badges ? video?.video?.badges[0] : null
     : formatVideoLen(video?.video?.lengthSeconds, video?.video?.badges);
 
   const dynamicStyles = {
