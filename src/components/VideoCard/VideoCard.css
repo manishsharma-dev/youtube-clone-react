@@ -1,8 +1,0 @@
-.publishedTimeText::before {
-  content: "•";
-  margin: 0 4px;
-  line-height: 2rem;
-  font-weight: 400;
-  white-space: normal;
-  color: gray;
-}

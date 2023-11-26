@@ -1,60 +1,31 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Box, Stack, Typography } from "@mui/material";
-import {
-  Navbar,
-  Feed,
-  VideoDetail,
-  ChannelDetail,
-  SearchFeed,
-  Sidebar,
-} from "./components";
 
-const App = () => (
-  <BrowserRouter>
-    <Box sx={{ backgroundColor: "#000" }}>
-      <Navbar />
-      <Stack
-        sx={{
-          flexDirection: { sx: "column", md: "row" },
-        }}
-      >
-        <Box
-          sx={{
-            height: { sx: "auto", md: "92vh" },
-            width: { sx: "0", md: "10vw" },
-            borderRight: "1px solid #3d3d3d"            
-          }}
-        >
-          <Sidebar />
-          <Typography
-            className="copyright"
-            variant="body2"
-            sx={{ mt: 1.5, color: "#fff", width: { sx: "100vw", md: "90vw" } }}
-          >
-            {" "}
-            Copyright 2023 M Media
-          </Typography>
-        </Box>
-        <Box
-          p={2}
-          sx={{
-            overflowY: "auto",
-            minHeight: "90vh",
-            height: "100%",
-            flex: 2,
-          }}
-        >
+import Header from "./components/Header";
+import Feed from "./components/Feed";
+import SearchResult from "./components/SearchResult";
+import VideoDetails from "./components/VideoDetails";
+
+import { AppContext } from "./context/contextApi";
+
+const App = () => {
+  return (
+    <AppContext>
+      <BrowserRouter>
+        <div className="flex flex-col h-full">
+          <Header />
           <Routes>
-            <Route path="/" exact element={<Feed />}></Route>
-            <Route path="/video/:id" element={<VideoDetail />}></Route>
-            <Route path="/channel/:id" element={<ChannelDetail />}></Route>
-            <Route path="/search/:searchTerm" element={<SearchFeed />}></Route>
+            <Route path="/" exact element={<Feed />} />
+            <Route
+              path="/searchResult/:searchQuery"
+              element={<SearchResult />}
+            />
+            <Route path="/video/:videoId" element={<VideoDetails />} />
           </Routes>
-        </Box>
-      </Stack>
-    </Box>
-  </BrowserRouter>
-);
+        </div>
+      </BrowserRouter>
+    </AppContext>
+  );
+};
 
 export default App;
